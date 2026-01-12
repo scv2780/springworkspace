@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.app.mybatis.mapper.DeptMapper">
+	<!-- 전체조회 -->
+	<select id="selectAll" resultType="DeptVO">
+		SELECT 	department_id
+				,department_name
+				,manager_id
+				,location_id
+		FROM departments
+		ORDER BY department_id
+	</select>
+	<!-- 단건조회 -->
+	<select id="selectInfo" 
+	parameterType="DeptVO" 
+	resultType="DeptVO">
+		SELECT 	department_id
+				,department_name
+				,manager_id
+				,location_id
+		FROM departments
+		WHERE department_id = #{departmentId}
+		<!-- 태그 안의 #{}는 preparedStatement의 ?를 의미 -->
+		<!-- #{} 안에 들어가는 대상은 parameterType의 필드명 -->
+	</select>
+	<!-- 등록 -->
+	<insert id="insertInfo" parameterType="DeptVO">
+		INSERT INTO departments
+					(
+						department_id
+						,department_name
+					)
+					VALUES
+					(	
+						DEPARTMENTS_SEQ.NEXTVAL
+						, #{departmentName}
+					)
+	</insert>
+	<!-- 수정 -->
+  	<update id="updateInfo" parameterType="DeptVO">
+		UPDATE departments
+		SET
+			department_name = #{departmentName}
+		WHERE department_id = #{departmentId}
+	</update>
+	<!-- 삭제 -->	
+ 	<delete id="deleteInfo" parameterType="int">
+		DELETE FROM departments
+		WHERE department_id = #{deptId}
+	</delete> 
+</mapper>
