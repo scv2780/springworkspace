@@ -20,7 +20,7 @@ public class ParameterController {
 	// QueryString(직의문자열)
 	// format : key=value&key=value&...
 	// Content-type : application/x-www-form-urlencoded
-	// Http Method : 전부 가을
+	// Http Method : 전부 가능
 	
 	// => 1) 커맨드 객체 : @ 없음. 객체타입
 	@RequestMapping("comobj")
