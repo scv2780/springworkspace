@@ -64,7 +64,7 @@ public class EmpController {
 	
 	// 수정 - 페이지
 	@GetMapping("empUpdate") // QueryString => 커맨드 객체 or @RequestParam
-	public String empUpdateFrom(EmpVO empVO, Model model) {
+	public String empUpdateForm(EmpVO empVO, Model model) {
 		EmpVO findVO = empService.findByEmployeeId(empVO);
 		model.addAttribute("emp", findVO);
 		return "emp/update";
