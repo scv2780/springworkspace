@@ -1,38 +1,48 @@
-<!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/">
-<head>
-<meta charset="UTF-8">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<title></title>
-</head>
-<body>
-	<div class="container">
-	<h2>전체 사원 조회</h2>
-	<table class="table">
-		<thead>
-  			<tr>
-  				<th>No.</th>
-    				<th>사원번호</th>
-    				<th>이름</th>
-    				<th>입사일자</th>
-    				<th>업무</th>
-  			</tr>
-		</thead>
-  		<tbody>
-  			<th:block th:each="list, status : ${emps}">
-  				<tr>
-  					<td>[[ ${status.count} ]]</td>
-    					<td>[[ ${list.employeeId} ]]</td>
-    					<td>[[ ${list.lastName} ]]</td>
-    					<td>[[ ${#dates.format(list.hireDate, "yyyy년 MM월 dd일")} ]]</td>
-    					<td>[[ ${list.jobId} ]]</td>
-  				</tr>
-  			</th:block>
-  		</tbody>
-	</table>
-
-	</div>
-		
-</body>
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{/common/layouts/default_layout}"
+	  layout:fragment="Content">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>전체 사원 조회</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>사원번호</th>
+            <th>이름</th>
+            <th>입사일자</th>
+            <th>업무</th>
+          </tr>
+        </thead>
+        <tbody>
+          <th:block th:each="list, status : ${emps}">
+            <tr>
+              <!-- <tr th:onclick="|location.href='@{/empInfo(employeeId=${list.employeeId})}'|"> -->
+              <td>[[ ${status.count} ]]</td>
+              <td>[[ ${list.employeeId} ]]</td>
+              <td>[[ ${list.lastName} ]]</td>
+              <td>[[ ${#dates.format(list.hireDate, "yyyy년 MM월 dd일")} ]]</td>
+              <td>[[ ${list.jobId} ]]</td>
+            </tr>
+          </th:block>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      let contextPath = document.querySelector('meta[name="ctxPath"]').getAttribute('value') ?? '';
+      document.querySelectorAll("tbody tr").forEach((tr) => {
+        tr.addEventListener("click", function (event) {
+          let tr = event.currentTarget;
+          let eId = tr.querySelector("td:nth-of-type(2)").textContent;
+          let url = contextPath + "/empInfo?employeeId=" + eId;
+          location.href = url;
+        });
+      });
+    </script>
+  </body>
 </html>
