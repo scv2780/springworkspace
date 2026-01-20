@@ -71,7 +71,7 @@
 								, #{hireDate}
 							</when>
 							<otherwise>
-								, salary
+								, sysdate
 							</otherwise>
 						</choose>
 						, #{jobId}
