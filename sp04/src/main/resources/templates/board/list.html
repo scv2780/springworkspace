@@ -1,9 +1,10 @@
 <!doctype html>
-<html xmlns:th="https://www.thymeleaf.org/">
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
 <head>
-<meta charset="UTF-8" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<meta charset="UTF-8"/>
 <title></title>
 </head>
 <body>
@@ -20,11 +21,11 @@
 			</thead>
 			<tbody>
 				<th:block th:each="list : ${boards}">
-					<tr>
+					<tr th:onclick="|location.href='@{boardInfo(bno=${list.bno})}'|">
 						<td>[[ ${list.bno} ]]</td>
 						<td>[[ ${list.title} ]]</td>
 						<td>[[ ${list.writer} ]]</td>
-						<td>[[ ${list.regdate} ]]</td>
+						<td>[[ ${#dates.format(list.regdate, 'yyyy/MM/dd')} ]]</td>
 					</tr>
 				</th:block>
 			</tbody>

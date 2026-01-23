@@ -33,3 +33,6 @@ select bno
       ,image
 from board
 order by bno;
+
+update board
+set image = 'cat.jpg';
